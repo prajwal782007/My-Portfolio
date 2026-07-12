@@ -189,8 +189,8 @@ document.addEventListener('DOMContentLoaded', () => {
              
              // finalX: -32vw, 0vw, 32vw (increased to 32vw so priority certs don't overlap normal certs)
              finalX = (colIndex - 1) * (window.innerWidth * 0.32); 
-             // finalY: -22vh, 22vh (increased vertical breathing room)
-             finalY = rowIndex === 0 ? -(window.innerHeight * 0.22) : (window.innerHeight * 0.22);
+             // finalY: shifted down slightly (+10vh) so they don't overlap the title at the top
+             finalY = rowIndex === 0 ? -(window.innerHeight * 0.12) : (window.innerHeight * 0.32);
              
              // Interpolate position and rotation using an ease-out curve
              let easeOut = 1 - Math.pow(1 - localProgress, 3);
