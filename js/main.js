@@ -123,6 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 setTimeout(() => {
                     loadingScreen.style.display = 'none';
                     portfolioHero.classList.add('visible');
+                    document.body.classList.remove('no-scroll');
                 }, 800); // matches the transition time of fade-out
                 
             }, 300); // tiny pause at 100%
