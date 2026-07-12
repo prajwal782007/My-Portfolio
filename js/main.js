@@ -412,6 +412,12 @@ document.addEventListener('DOMContentLoaded', () => {
             if (audioElement) {
                 currentAudio = audioElement;
                 currentAudio.currentTime = 0;
+                
+                // Pause background videos to prevent overlapping audio and silent videos
+                document.querySelectorAll('.scroll-autoplay-video').forEach(video => {
+                    video.pause();
+                });
+                
                 currentAudio.play().catch(e => console.log('Audio autoplay blocked:', e));
             }
         };
@@ -435,6 +441,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (currentAudio) {
                     currentAudio.pause();
                 }
+                
+                // Resume background videos that are in view when speech is closed
+                document.querySelectorAll('.scroll-autoplay-video').forEach(video => {
+                    video.muted = false; // ensure they play with sound
+                    const rect = video.getBoundingClientRect();
+                    // check if at least partially in view
+                    if (rect.top < window.innerHeight && rect.bottom >= 0) {
+                        video.play().catch(e => console.log('Resume blocked:', e));
+                    }
+                });
             });
         }
     }
@@ -442,11 +458,42 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Autoplay Video on Scroll Logic ---
     const autoplayVideos = document.querySelectorAll('.scroll-autoplay-video');
     if (autoplayVideos.length > 0) {
+        autoplayVideos.forEach(video => {
+            const loader = video.parentElement.querySelector('.sexy-video-loader-wrapper');
+            
+            // Show loader when waiting for data (buffering)
+            video.addEventListener('waiting', () => {
+                if (loader) loader.classList.add('active');
+            });
+
+            // Hide loader when video starts playing or has enough data
+            video.addEventListener('playing', () => {
+                if (loader) loader.classList.remove('active');
+            });
+            
+            video.addEventListener('canplay', () => {
+                if (loader) loader.classList.remove('active');
+            });
+        });
+
         const videoObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 const video = entry.target;
                 if (entry.isIntersecting) {
-                    video.play().catch(e => console.log('Video play blocked:', e));
+                    // Check if speech is currently playing
+                    const isSpeechPlaying = currentAudio && !currentAudio.paused;
+                    
+                    if (isSpeechPlaying) {
+                        // If speech is playing, pause the video (do not play it silently)
+                        video.pause();
+                    } else {
+                        // Play the video with its own audio
+                        video.muted = false;
+                        video.play().catch(e => {
+                            console.log('Video play blocked:', e);
+                            video.pause();
+                        });
+                    }
                 } else {
                     video.pause();
                 }
