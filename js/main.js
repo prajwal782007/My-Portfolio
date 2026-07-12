@@ -403,4 +403,21 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // --- Autoplay Video on Scroll Logic ---
+    const autoplayVideos = document.querySelectorAll('.scroll-autoplay-video');
+    if (autoplayVideos.length > 0) {
+        const videoObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                const video = entry.target;
+                if (entry.isIntersecting) {
+                    video.play().catch(e => console.log('Video play blocked:', e));
+                } else {
+                    video.pause();
+                }
+            });
+        }, { threshold: 0.5 }); // Play when at least 50% visible
+
+        autoplayVideos.forEach(video => videoObserver.observe(video));
+    }
+
 });
