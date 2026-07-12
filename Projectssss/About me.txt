@@ -1,0 +1,37 @@
+Hi, I'm Prajwal Valekar, a Computer Science Engineering student and AI and full-stack developer based in Pune, India.
+
+I'm currently pursuing my Bachelor of Engineering in Computer Science and Engineering at Dhole Patil College of Engineering, from 2025 to 2029.
+
+I enjoy building technology that goes beyond simple applications. My work spans artificial intelligence, reinforcement learning, full-stack development, mobile applications, IoT, systems programming, and hardware-based projects. What interests me most is taking an ambitious idea, understanding how all its parts connect, and turning it into something that actually works.
+
+One of the biggest milestones in my journey was being selected among the Top 800 nationwide from more than 72,000 registrations in the Meta PyTorch OpenEnv Hackathon in collaboration with Scaler School of Technology.
+
+For this hackathon, my team and I built GridMind-RL, a reinforcement learning environment designed to train Large Language Models to manage industrial building energy systems. The environment simulates changing electricity prices, grid stress, equipment faults, temperature constraints, carbon intensity, and natural-language objectives across a complete 24-hour operating cycle.
+
+I built the environment using Go for the core simulation and backend infrastructure, with Python for the AI agent and reinforcement-learning pipeline. The project was deployed on Hugging Face and became one of the most technically significant projects I've worked on.
+
+Another major part of my journey has been building hardware and satellite communication systems.
+
+As a team lead at the AISSMS Hackathon, I worked on a full satellite communication system equipped with a camera and multiple sensors. The satellite communicated with rural and urban ground nodes, transmitting live sensor data and photographs to a web dashboard. We also successfully tested its parachute deployment through a real crane-drop experiment.
+
+I later led another team at the Inovista Hackathon, where we developed a standalone satellite system capable of orientation and location detection.
+
+Beyond hackathons, I've built more than ten projects across different areas of technology.
+
+These include a personal Jarvis AI agent that automatically creates daily schedules, a complete academy management platform with separate teacher and student applications, a full-stack store ordering system with a deployed backend, an online multiplayer Tic Tac Toe game with AI and offline modes, a real-time inventory management system connecting Android and web applications through Firebase, and a complete reimplementation of GridMind in Rust to explore systems-level programming.
+
+I've also built projects for other college students across multiple domains, which gave me experience in understanding real requirements and turning them into working software.
+
+Technically, I work across languages including Python, Java, C, JavaScript, TypeScript, Go, and Rust. My experience also includes React, Flutter, Firebase, MongoDB, Docker, Hugging Face, reinforcement learning, GRPO, LLM fine-tuning, and full-stack deployment.
+
+I'm also an active member of the AI and Machine Learning Club and the Antriksh Club at my college, where I explore AI, research, technology, aerospace systems, workshops, competitions, and collaborative projects.
+
+But what defines me most is not the number of technologies I've used or projects I've built. It's the way I approach problems.
+
+I like working on things I don't completely know how to build at the beginning. Whether it's training an AI agent, creating a satellite communication network, building a mobile platform, or learning a new systems language, I prefer to start with a difficult problem, break it into smaller parts, experiment, fail, debug, and keep going until something real works.
+
+I'm still early in my engineering journey, and there's a lot I haven't learned yet. But that's exactly what keeps me building.
+
+I'm currently open to internships, collaborations, ambitious technical projects, and opportunities where I can work on meaningful real-world systems while continuing to learn.
+
+I'm Prajwal Valekar, and I build across AI, software, and intelligent systems, one ambitious project at a time.
