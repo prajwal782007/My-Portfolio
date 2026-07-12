@@ -173,7 +173,7 @@ document.addEventListener('DOMContentLoaded', () => {
              // Final settled coordinates for a perfect 3x2 Grid
              let finalX = 0;
              let finalY = 0;
-             let finalR = (index % 2 === 0 ? 1 : -1) * 2; // Very clean, minimal tilt
+             let finalR = 0; // Exactly 0 degrees for a perfectly straight layout
              
              let gridSlot = 0;
              if (img.classList.contains('lokyu-cert')) gridSlot = 1; // Top Middle
@@ -187,10 +187,10 @@ document.addEventListener('DOMContentLoaded', () => {
              let colIndex = gridSlot % 3; // 0, 1, or 2
              let rowIndex = Math.floor(gridSlot / 3); // 0 or 1
              
-             // finalX: -28vw, 0vw, 28vw (ensures they spread evenly across screen width)
-             finalX = (colIndex - 1) * (window.innerWidth * 0.28); 
-             // finalY: -18vh, 18vh
-             finalY = rowIndex === 0 ? -(window.innerHeight * 0.18) : (window.innerHeight * 0.18);
+             // finalX: -32vw, 0vw, 32vw (increased to 32vw so priority certs don't overlap normal certs)
+             finalX = (colIndex - 1) * (window.innerWidth * 0.32); 
+             // finalY: -22vh, 22vh (increased vertical breathing room)
+             finalY = rowIndex === 0 ? -(window.innerHeight * 0.22) : (window.innerHeight * 0.22);
              
              // Interpolate position and rotation using an ease-out curve
              let easeOut = 1 - Math.pow(1 - localProgress, 3);
