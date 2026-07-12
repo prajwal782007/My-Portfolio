@@ -214,4 +214,50 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // ==================================================
+    // CERTIFICATE MODAL LOGIC
+    // ==================================================
+    const certModal = document.getElementById('cert-modal');
+    const certModalImg = document.getElementById('cert-modal-img');
+    const certModalClose = document.querySelector('.cert-modal-close');
+
+    if (certModal && certModalImg && certModalClose) {
+        certImgs.forEach(img => {
+            // Hover logic for custom cursor
+            img.addEventListener('mouseenter', () => {
+                if (cursorRing) cursorRing.classList.add('hovering');
+            });
+            img.addEventListener('mouseleave', () => {
+                if (cursorRing) cursorRing.classList.remove('hovering');
+            });
+
+            // Open modal on click
+            img.addEventListener('click', () => {
+                certModal.style.display = 'flex';
+                // Tiny delay to ensure display: flex is applied before opacity transition
+                setTimeout(() => {
+                    certModal.classList.add('active');
+                }, 10);
+                certModalImg.src = img.src;
+                certModalImg.alt = img.alt;
+            });
+        });
+
+        const closeModal = () => {
+            certModal.classList.remove('active');
+            setTimeout(() => {
+                certModal.style.display = 'none';
+                certModalImg.src = ''; // Clear source so it doesn't flash old image next time
+            }, 300); // Matches transition duration
+        };
+
+        certModalClose.addEventListener('click', closeModal);
+        certModal.addEventListener('click', (e) => {
+            // Close if clicking outside the image
+            if (e.target === certModal) {
+                closeModal();
+            }
+        });
+    }
+
 });
