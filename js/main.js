@@ -588,6 +588,19 @@ document.addEventListener('DOMContentLoaded', () => {
                     ctxDefault.classList.remove('active');
                     ctxDynamic.classList.add('active');
                     
+                    // Align context panel vertically with the hovered item
+                    const layoutRect = document.querySelector('.tech-layout').getBoundingClientRect();
+                    const itemRect = item.getBoundingClientRect();
+                    // offset from top of the layout container
+                    let offset = itemRect.top - layoutRect.top;
+                    // Subtract a small amount so the panel title aligns perfectly with the item text baseline
+                    offset = Math.max(0, offset - 10);
+                    
+                    const ctxPanel = document.getElementById('tech-context-panel');
+                    if (ctxPanel) {
+                        ctxPanel.style.transform = `translateY(${offset}px)`;
+                    }
+                    
                     // Set custom cursor text
                     item.setAttribute('data-cursor-text', 'USE');
                     item.classList.add('custom-cursor-visual');
@@ -607,6 +620,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 skillItems.forEach(s => s.classList.remove('active-skill'));
                 ctxDynamic.classList.remove('active');
                 ctxDefault.classList.add('active');
+                
+                const ctxPanel = document.getElementById('tech-context-panel');
+                if (ctxPanel) {
+                    ctxPanel.style.transform = `translateY(0px)`;
+                }
             });
         }
     } else {

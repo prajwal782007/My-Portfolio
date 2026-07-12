@@ -1777,13 +1777,13 @@ body.no-scroll {
 }
 
 .context-panel {
-    position: sticky;
-    top: 20vh;
+    position: relative;
     border-left: 1px solid rgba(255,255,255,0.1);
     padding-left: 3rem;
     min-height: 400px;
     display: flex;
     flex-direction: column;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .context-default, .context-dynamic {
