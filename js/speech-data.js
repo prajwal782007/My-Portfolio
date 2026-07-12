@@ -37,3 +37,11 @@ GridMind-RL was built for the Meta PyTorch OpenEnv Hackathon in collaboration wi
 For me, GridMind-RL represents something bigger than just another AI project. It explores how language models can move beyond generating text and begin learning to make long-term decisions inside complex, dynamic systems.
 
 This is GridMind-RL: training AI to understand, adapt, plan, and manage the energy systems of tomorrow.`;
+
+const aboutMeSpeech = `Hi, I'm Prajwal Valekar, a Computer Science Engineering student and AI & Full-Stack Developer based in Pune, India. I build intelligent systems across AI, reinforcement learning, full-stack development, mobile applications, IoT, and hardware.
+
+One of my biggest achievements was being selected among the Top 800 nationwide from 72,000+ registrations in the Meta PyTorch OpenEnv Hackathon × Scaler School of Technology, where my team built GridMind-RL, an RL environment that trains LLMs to manage industrial building energy systems.
+
+As a team lead, I've also built satellite communication systems with cameras, sensors, ground nodes, live telemetry, and web dashboards. Beyond hackathons, I've developed 10+ projects across AI, mobile, web, and systems programming.
+
+I enjoy taking ambitious ideas, breaking down difficult problems, experimenting, failing, debugging, and turning them into real working technology.`;

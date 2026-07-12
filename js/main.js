@@ -388,10 +388,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Speech Player Logic ---
     const hearGridmindBtn = document.getElementById('hear-gridmind-btn');
     const hearCubesatBtn = document.getElementById('hear-cubesat-btn');
+    const hearAboutMeBtn = document.getElementById('hear-about-me-btn');
     const speechWidget = document.getElementById('speech-player-widget');
     const closeSpeechBtn = document.getElementById('close-speech-btn');
     const gridmindAudio = document.getElementById('gridmind-audio');
     const cubesatAudio = document.getElementById('cubesat-audio');
+    const aboutmeAudio = document.getElementById('aboutme-audio');
     const speechTextContainer = document.getElementById('speech-text');
     const speechTitle = document.querySelector('.speech-title');
 
@@ -439,6 +441,12 @@ document.addEventListener('DOMContentLoaded', () => {
             hearCubesatBtn.addEventListener('click', () => {
                 // Using cubesatMarkdown as text fallback for the speech widget
                 playSpeech(cubesatAudio, 'Playing: Satellite Communication System', typeof cubesatMarkdown !== 'undefined' ? cubesatMarkdown : undefined);
+            });
+        }
+        
+        if (hearAboutMeBtn && aboutmeAudio) {
+            hearAboutMeBtn.addEventListener('click', () => {
+                playSpeech(aboutmeAudio, 'Playing: About Prajwal Valekar', typeof aboutMeSpeech !== 'undefined' ? aboutMeSpeech : undefined);
             });
         }
 
