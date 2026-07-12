@@ -316,4 +316,91 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // --- Project Details Modal Logic ---
+    const readGridmindBtn = document.getElementById('read-gridmind-btn');
+    const projectModal = document.getElementById('project-details-modal');
+    const projectModalClose = document.querySelector('.project-modal-close');
+    const projectModalBackdrop = document.querySelector('.project-modal-backdrop');
+    const projectModalBody = document.getElementById('project-details-body');
+
+    if (readGridmindBtn && projectModal) {
+        readGridmindBtn.addEventListener('click', () => {
+            // Show modal
+            projectModal.classList.add('show');
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+
+            try {
+                // gridmindMarkdown is loaded globally from gridmind-data.js
+                const text = typeof gridmindMarkdown !== 'undefined' ? gridmindMarkdown : 'Markdown data not loaded.';
+                
+                // Very basic markdown parser for this specific file
+                let html = text
+                    .replace(/^### (.*$)/gim, '<h3>$1</h3>')
+                    .replace(/^## (.*$)/gim, '<h2>$1</h2>')
+                    .replace(/^# (.*$)/gim, '<h1>$1</h1>')
+                    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                    .replace(/_(.*?)_/g, '<em>$1</em>')
+                    .replace(/^> (.*$)/gim, '<blockquote>$1</blockquote>')
+                    .replace(/^- (.*$)/gim, '<li>$1</li>')
+                    .replace(/^---$/gim, '<hr>')
+                    // Convert plain URLs to clickable links
+                    .replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>');
+
+                // Wrap lists
+                html = html.replace(/(<li>.*<\/li>(\n<li>.*<\/li>)*)/gim, '<ul>$1</ul>');
+                
+                // Wrap paragraphs
+                html = html.split('\n\n').map(p => {
+                    if (p.trim() === '' || p.trim().startsWith('<')) return p;
+                    return '<p>' + p.trim().replace(/\n/g, '<br>') + '</p>';
+                }).join('\n\n');
+
+                projectModalBody.innerHTML = html;
+            } catch (error) {
+                console.error(error);
+                projectModalBody.innerHTML = '<p>Error parsing project details. Please try again.</p>';
+            }
+        });
+
+        const closeProjectModal = () => {
+            projectModal.classList.remove('show');
+            document.body.style.overflow = '';
+        };
+
+        if (projectModalClose) projectModalClose.addEventListener('click', closeProjectModal);
+        if (projectModalBackdrop) projectModalBackdrop.addEventListener('click', closeProjectModal);
+    }
+
+    // --- Speech Player Logic ---
+    const hearGridmindBtn = document.getElementById('hear-gridmind-btn');
+    const speechWidget = document.getElementById('speech-player-widget');
+    const closeSpeechBtn = document.getElementById('close-speech-btn');
+    const gridmindAudio = document.getElementById('gridmind-audio');
+    const speechTextContainer = document.getElementById('speech-text');
+
+    if (hearGridmindBtn && speechWidget && gridmindAudio) {
+        hearGridmindBtn.addEventListener('click', () => {
+            speechWidget.classList.add('show');
+            
+            // Format and load text from global speech-data.js
+            if (typeof gridmindSpeech !== 'undefined') {
+                const formattedSpeech = gridmindSpeech.split('\n\n').map(p => {
+                    return `<p style="margin-bottom: 1rem;">${p}</p>`;
+                }).join('');
+                speechTextContainer.innerHTML = formattedSpeech;
+            } else {
+                speechTextContainer.innerHTML = '<p>Speech text not loaded.</p>';
+            }
+
+            // Play audio
+            gridmindAudio.currentTime = 0;
+            gridmindAudio.play().catch(e => console.log('Audio autoplay blocked:', e));
+        });
+
+        closeSpeechBtn.addEventListener('click', () => {
+            speechWidget.classList.remove('show');
+            gridmindAudio.pause();
+        });
+    }
+
 });

@@ -169,17 +169,21 @@
                 <div class="project-tech">
                     <span>GO</span><span>PYTHON</span><span>DOCKER</span><span>HUGGINGFACE</span>
                 </div>
-                <a href="https://prajwal782007-gridmind.hf.space" target="_blank" rel="noopener noreferrer" class="project-cta custom-cursor-hover">
-                    VIEW PROJECT <span class="cta-arrow">↗</span>
-                </a>
+                <div class="project-actions" style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                    <a href="https://prajwal782007-gridmind.hf.space" target="_blank" rel="noopener noreferrer" class="project-cta custom-cursor-hover">
+                        VIEW PROJECT <span class="cta-arrow">↗</span>
+                    </a>
+                    <button id="read-gridmind-btn" class="project-cta custom-cursor-hover">
+                        READ ABOUT <span class="cta-arrow">→</span>
+                    </button>
+                    <button id="hear-gridmind-btn" class="project-cta custom-cursor-hover">
+                        HEAR ABOUT <span class="cta-arrow">🔊</span>
+                    </button>
+                </div>
             </div>
             <div class="project-visual visual-right custom-cursor-visual parallax-target" data-speed="0.015" data-cursor-text="VIEW ↗">
-                <div class="abstract-gridmind visual-inner">
-                    <div class="abstract-node node-1">STATE_VECTOR</div>
-                    <div class="abstract-pulse"></div>
-                    <div class="abstract-node node-2">POLICY_NET [LLM]</div>
-                    <div class="abstract-pulse reverse"></div>
-                    <div class="abstract-node node-3">ACTION: ENERGY_OPT</div>
+                <div class="visual-inner" style="padding: 0; overflow: hidden; display: flex; background: #000;">
+                    <iframe src="https://prajwal782007-gridmind.hf.space/dashboard" style="width: 100%; height: 100%; border: none; pointer-events: auto; opacity: 0.9; mix-blend-mode: screen;" title="GridMind Live Dashboard"></iframe>
                 </div>
             </div>
         </article>
@@ -290,6 +294,37 @@
         <img class="cert-modal-content" id="cert-modal-img">
     </div>
 
+    <!-- Project Details Modal -->
+    <div id="project-details-modal" class="project-modal">
+        <div class="project-modal-backdrop magnetic-target"></div>
+        <div class="project-modal-content">
+            <span class="project-modal-close magnetic-target">&times;</span>
+            <div class="project-modal-body" id="project-details-body">
+                <!-- Content injected via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Speech Player Widget -->
+    <div id="speech-player-widget" class="speech-widget">
+        <button id="close-speech-btn" class="speech-close-btn magnetic-target">&times;</button>
+        <div class="speech-header">
+            <div class="speech-icon">
+                <span class="pulse-ring"></span>
+                🔊
+            </div>
+            <div class="speech-title">Playing: GridMind-RL Overview</div>
+        </div>
+        <div class="speech-captions-container" id="speech-captions-container">
+            <p id="speech-text" class="speech-text"></p>
+        </div>
+        <audio id="gridmind-audio" preload="auto">
+            <source src="Projectssss/ElevenLabs_2026-07-12T14_03_42_Sarah - Mature, Reassuring, Confident_pre_sp100_s50_sb75_se0_b_m2.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+
+    <script src="js/gridmind-data.js"></script>
+    <script src="js/speech-data.js"></script>
     <script src="js/main.js"></script>
 </body>
 

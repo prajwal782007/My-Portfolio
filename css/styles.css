@@ -1282,3 +1282,299 @@ body.no-scroll {
 .cert-img {
     cursor: none;
 }
+
+/* --- Project Details Modal --- */
+.project-modal {
+    display: none;
+    position: fixed;
+    z-index: 10000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    align-items: center;
+    justify-content: center;
+}
+
+.project-modal.show {
+    display: flex;
+    animation: fadeIn 0.3s ease-out forwards;
+}
+
+.project-modal-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    cursor: none;
+}
+
+.project-modal-content {
+    position: relative;
+    background-color: #111;
+    border: 1px solid rgba(255, 90, 31, 0.2);
+    width: 90%;
+    max-width: 800px;
+    max-height: 85vh;
+    border-radius: 4px;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8);
+    overflow: hidden;
+    z-index: 10001;
+    transform: translateY(20px);
+    opacity: 0;
+    animation: slideUpFade 0.4s 0.1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    display: flex;
+    flex-direction: column;
+}
+
+.project-modal-close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    color: var(--text-secondary);
+    font-size: 32px;
+    font-weight: 300;
+    cursor: none;
+    transition: color 0.3s;
+    z-index: 2;
+    background: #111;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.project-modal-close:hover {
+    color: var(--accent-orange);
+}
+
+.project-modal-body {
+    padding: 50px;
+    overflow-y: auto;
+    color: var(--text-primary);
+    line-height: 1.6;
+    font-size: 1.05rem;
+}
+
+/* Custom Scrollbar for Modal */
+.project-modal-body::-webkit-scrollbar {
+    width: 6px;
+}
+.project-modal-body::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+}
+.project-modal-body::-webkit-scrollbar-thumb {
+    background: rgba(255, 90, 31, 0.5);
+    border-radius: 3px;
+}
+.project-modal-body::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 90, 31, 0.8);
+}
+
+.project-modal-body h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+}
+
+.project-modal-body h2 {
+    font-size: 1.5rem;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 0.5rem;
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+.project-modal-body h3 {
+    font-size: 1.2rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+.project-modal-body p {
+    margin-bottom: 1.2rem;
+    color: var(--text-secondary);
+}
+
+.project-modal-body ul {
+    margin-bottom: 1.5rem;
+    padding-left: 20px;
+    color: var(--text-secondary);
+}
+
+.project-modal-body li {
+    margin-bottom: 0.5rem;
+}
+
+.project-modal-body strong {
+    color: var(--accent-orange);
+    font-weight: 500;
+}
+
+.project-modal-body hr {
+    border: 0;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+    margin: 2.5rem 0;
+}
+
+.project-modal-body blockquote {
+    border-left: 2px solid var(--accent-orange);
+    padding-left: 1.5rem;
+    margin: 2rem 0;
+    font-style: italic;
+    color: var(--text-muted);
+}
+
+/* Basic table styles if needed */
+.project-modal-body table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2rem 0;
+}
+
+.project-modal-body th,
+.project-modal-body td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.project-modal-body th {
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+.project-modal-body td {
+    color: var(--text-secondary);
+}
+
+.project-modal-body a {
+    color: var(--accent-orange);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-bottom-color 0.3s;
+}
+
+.project-modal-body a:hover {
+    border-bottom-color: var(--accent-orange);
+}
+
+/* --- Speech Player Widget --- */
+.speech-widget {
+    position: fixed;
+    bottom: -100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 600px;
+    background: rgba(15, 15, 15, 0.95);
+    border: 1px solid rgba(255, 90, 31, 0.3);
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.8);
+    z-index: 10005;
+    transition: bottom 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    backdrop-filter: blur(12px);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.speech-widget.show {
+    bottom: 40px;
+}
+
+.speech-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    padding-bottom: 15px;
+}
+
+.speech-icon {
+    font-size: 24px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pulse-ring {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border: 2px solid var(--accent-orange);
+    border-radius: 50%;
+    animation: pulse 1.5s infinite;
+    opacity: 0;
+}
+
+@keyframes pulse {
+    0% { transform: scale(0.8); opacity: 0.8; }
+    100% { transform: scale(1.5); opacity: 0; }
+}
+
+.speech-title {
+    color: var(--accent-orange);
+    font-weight: 500;
+    font-size: 1.1rem;
+    letter-spacing: 0.02em;
+}
+
+.speech-captions-container {
+    max-height: 180px;
+    overflow-y: auto;
+    padding-right: 15px;
+}
+
+.speech-captions-container::-webkit-scrollbar { width: 4px; }
+.speech-captions-container::-webkit-scrollbar-track { background: transparent; }
+.speech-captions-container::-webkit-scrollbar-thumb { background: rgba(255, 90, 31, 0.5); border-radius: 2px; }
+
+.speech-text {
+    color: var(--text-primary);
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin: 0;
+}
+
+.speech-close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 28px;
+    cursor: none;
+    transition: color 0.3s;
+}
+
+.speech-close-btn:hover {
+    color: var(--accent-orange);
+}
+
+@keyframes slideUpFade {
+    from {
+        transform: translateY(30px) scale(0.98);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+}
