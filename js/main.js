@@ -318,22 +318,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Project Details Modal Logic ---
     const readGridmindBtn = document.getElementById('read-gridmind-btn');
+    const readCubesatBtn = document.getElementById('read-cubesat-btn');
     const projectModal = document.getElementById('project-details-modal');
     const projectModalClose = document.querySelector('.project-modal-close');
     const projectModalBackdrop = document.querySelector('.project-modal-backdrop');
     const projectModalBody = document.getElementById('project-details-body');
 
-    if (readGridmindBtn && projectModal) {
-        readGridmindBtn.addEventListener('click', () => {
-            // Show modal
+    if (projectModal) {
+        const openProjectModal = (markdownText) => {
             projectModal.classList.add('show');
-            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            document.body.style.overflow = 'hidden';
 
             try {
-                // gridmindMarkdown is loaded globally from gridmind-data.js
-                const text = typeof gridmindMarkdown !== 'undefined' ? gridmindMarkdown : 'Markdown data not loaded.';
+                const text = typeof markdownText !== 'undefined' ? markdownText : 'Markdown data not loaded.';
                 
-                // Very basic markdown parser for this specific file
                 let html = text
                     .replace(/^### (.*$)/gim, '<h3>$1</h3>')
                     .replace(/^## (.*$)/gim, '<h2>$1</h2>')
@@ -343,13 +341,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     .replace(/^> (.*$)/gim, '<blockquote>$1</blockquote>')
                     .replace(/^- (.*$)/gim, '<li>$1</li>')
                     .replace(/^---$/gim, '<hr>')
-                    // Convert plain URLs to clickable links
                     .replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>');
 
-                // Wrap lists
                 html = html.replace(/(<li>.*<\/li>(\n<li>.*<\/li>)*)/gim, '<ul>$1</ul>');
                 
-                // Wrap paragraphs
                 html = html.split('\n\n').map(p => {
                     if (p.trim() === '' || p.trim().startsWith('<')) return p;
                     return '<p>' + p.trim().replace(/\n/g, '<br>') + '</p>';
@@ -360,7 +355,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.error(error);
                 projectModalBody.innerHTML = '<p>Error parsing project details. Please try again.</p>';
             }
-        });
+        };
+
+        if (readGridmindBtn) {
+            readGridmindBtn.addEventListener('click', () => {
+                openProjectModal(typeof gridmindMarkdown !== 'undefined' ? gridmindMarkdown : undefined);
+            });
+        }
+        
+        if (readCubesatBtn) {
+            readCubesatBtn.addEventListener('click', () => {
+                openProjectModal(typeof cubesatMarkdown !== 'undefined' ? cubesatMarkdown : undefined);
+            });
+        }
 
         const closeProjectModal = () => {
             projectModal.classList.remove('show');
