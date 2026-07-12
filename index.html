@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prajwal Valekar - Portfolio</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Custom Cursor (Desktop Only) -->
+    <div id="cursor-dot" class="custom-cursor-dot"></div>
+    <div id="cursor-ring" class="custom-cursor-ring"></div>
+
+    <!-- Premium Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-counter"><span id="loading-progress">0</span><span class="percent">%</span></div>
+            <div class="loading-bar-container">
+                <div class="loading-bar-fill" id="loading-bar-fill"></div>
+            </div>
+            <div class="loading-text">PREPARING PORTFOLIO</div>
+        </div>
+    </div>
+
+    <!-- New Editorial Portfolio Hero -->
+    <section class="editorial-hero" id="portfolio-content">
+                <!-- Film grain texture -->
+                <div class="hero-noise"></div>
+                <!-- Subtle atmospheric glow behind portrait -->
+                <div class="hero-glow"></div>
+
+                <nav class="hero-nav reveal-nav">
+                    <div class="nav-logo">PRAJWAL.</div>
+                    <ul class="nav-links">
+                        <li><a href="#about" class="magnetic-target">ABOUT</a></li>
+                        <li><a href="#work" class="magnetic-target">WORK</a></li>
+                        <li><a href="#experience" class="magnetic-target">EXPERIENCE</a></li>
+                        <li><a href="#contact" class="magnetic-target">CONTACT</a></li>
+                        <li><button class="nav-menu-btn magnetic-target">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="1.5">
+                                    <line x1="4" y1="8" x2="20" y2="8"></line>
+                                    <line x1="4" y1="16" x2="20" y2="16"></line>
+                                </svg>
+                            </button></li>
+                    </ul>
+                </nav>
+
+                <div class="hero-composition">
+                    <h1 class="hero-name">
+                        <div class="name-line-mask"><span class="name-line name-first parallax-target scatter-target"
+                                data-speed="0.04" data-scatter-x="-150" data-scatter-y="-100"
+                                data-scatter-r="-15">PRAJWAL</span></div>
+                        <div class="name-line-mask"><span class="name-line name-last parallax-target scatter-target"
+                                data-speed="0.06" data-scatter-x="150" data-scatter-y="-50"
+                                data-scatter-r="10">VALEKAR</span></div>
+                    </h1>
+
+                    <div class="portrait-wrapper reveal-portrait scatter-target" data-scatter-x="0"
+                        data-scatter-y="-200" data-scatter-r="0">
+                        <img src="CUTOUTIMG.png" alt="Prajwal Valekar" class="hero-portrait parallax-target"
+                            data-speed="0.02">
+                    </div>
+
+                    <div class="hero-metadata">
+                        <div class="meta-block top-left reveal-meta parallax-target scatter-target" data-speed="-0.01"
+                            data-scatter-x="-200" data-scatter-y="-50" data-scatter-r="-30">
+                            <span class="meta-label">COMPUTER SCIENCE</span>
+                            <span class="meta-value">ENGINEER</span>
+                        </div>
+
+                        <div class="meta-block mid-right reveal-meta parallax-target scatter-target" data-speed="-0.02"
+                            data-scatter-x="200" data-scatter-y="100" data-scatter-r="45">
+                            <div class="signature-marker">
+                                <span class="orange-square"></span>
+                                <span class="meta-label">AI & FULL-STACK</span>
+                            </div>
+                            <span class="meta-value">DEVELOPER</span>
+                        </div>
+
+                        <div class="meta-block bottom-left reveal-meta parallax-target scatter-target" data-speed="0.01"
+                            data-scatter-x="-100" data-scatter-y="150" data-scatter-r="-20">
+                            <p class="primary-statement">I build intelligent systems across AI, <br>reinforcement
+                                learning and full-stack technology.</p>
+                            <div class="hero-ctas">
+                                <button class="cta-primary magnetic-target"><span class="btn-text">EXPLORE MY
+                                        WORK</span> <span class="btn-icon">↗</span></button>
+                                <a href="#" class="cta-secondary magnetic-target"><span class="btn-text">DOWNLOAD
+                                        RESUME</span> <span class="btn-icon">↓</span></a>
+                            </div>
+                        </div>
+
+                        <div class="meta-block bottom-right reveal-meta parallax-target scatter-target"
+                            data-speed="0.02" data-scatter-x="200" data-scatter-y="200" data-scatter-r="25">
+                            <p class="secondary-statement">FROM LLM TRAINING ENVIRONMENTS<br>TO SATELLITE COMMUNICATION
+                                SYSTEMS.</p>
+
+                            <div class="hero-stats">
+                                <div class="stat-item">
+                                    <span class="stat-number">TOP <span class="accent-orange">800</span></span>
+                                    <span class="stat-desc">out of 72,000+ national registrations</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-number"><span class="accent-orange">10+</span></span>
+                                    <span class="stat-desc">Projects Built</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+    <!-- Certificate Scroll Track -->
+    <main class="cert-timeline" id="cert-timeline">
+        <div class="cert-sticky-view">
+            <!-- New Certificates Section (revealed on scroll) -->
+            <section id="certificates" class="certificates-section">
+                <h2 class="cert-title">CERTIFICATIONS & ACHIEVEMENTS</h2>
+
+                <div class="cert-container">
+                    <!-- Normal Certificates -->
+                    <img src="certificates/3547 rank.png" alt="3547 Rank" class="cert-img normal-cert cert-path" data-delay="0.2">
+                    <img src="certificates/AISSMA.png" alt="AISSMA" class="cert-img normal-cert cert-path" data-delay="0.4">
+                    <img src="certificates/Icat.png" alt="Icat" class="cert-img normal-cert cert-path" data-delay="0.6">
+                    <img src="certificates/Mahindra.png" alt="Mahindra" class="cert-img normal-cert cert-path" data-delay="0.8">
+
+                    <!-- Priority Certificates (Larger, central) -->
+                    <img src="certificates/LOKyu.png" alt="LOKyu" class="cert-img priority-cert lokyu-cert cert-path" data-delay="0">
+                    <img src="certificates/Bangalore.png" alt="Bangalore" class="cert-img priority-cert bangalore-cert cert-path" data-delay="0.1">
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>
