@@ -44,8 +44,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 parallaxState[index].x += (targetX - parallaxState[index].x) * 0.08;
                 parallaxState[index].y += (targetY - parallaxState[index].y) * 0.08;
 
-                // Only apply parallax if we haven't scrolled, otherwise it overrides the scatter effect!
-                if (window.scrollY < 10) {
+                // Only apply parallax if we haven't scrolled (to avoid overriding hero scatter effect)
+                // OR if the element is inside the selected-work section which doesn't use scatter.
+                if (window.scrollY < 10 || el.closest('.selected-work')) {
                     el.style.transform = `translate(${parallaxState[index].x}px, ${parallaxState[index].y}px)`;
                 }
             });
@@ -214,6 +215,60 @@ document.addEventListener('DOMContentLoaded', () => {
              img.style.opacity = Math.min(localProgress * 4, 1);
         });
     });
+
+    // ==================================================
+    // SELECTED WORK SECTION LOGIC
+    // ==================================================
+    const selectedWorkSection = document.getElementById('work');
+    if (selectedWorkSection) {
+        // Scroll Reveals
+        const revealElements = document.querySelectorAll('.reveal-on-scroll');
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15 });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // Background color shifts per project
+        const projectItems = document.querySelectorAll('.project-item');
+        const bgColors = {
+            'project-01': '#111216', // Cool charcoal
+            'project-02': '#161412', // Warm neutral
+            'project-03': '#121016', // Deep purple-ish dark
+            'project-04': '#101214'  // Back to deep charcoal
+        };
+
+        const bgObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    let newBg = 'var(--bg-color)';
+                    if (entry.target.classList.contains('project-01')) newBg = bgColors['project-01'];
+                    if (entry.target.classList.contains('project-02')) newBg = bgColors['project-02'];
+                    if (entry.target.classList.contains('project-03')) newBg = bgColors['project-03'];
+                    if (entry.target.classList.contains('project-04')) newBg = bgColors['project-04'];
+                    selectedWorkSection.style.backgroundColor = newBg;
+                }
+            });
+        }, { threshold: 0.5 }); // Trigger when 50% of the project is visible
+
+        projectItems.forEach(el => bgObserver.observe(el));
+
+        // Extend Custom Cursor
+        const customInteractives = document.querySelectorAll('.custom-cursor-hover, .custom-cursor-visual, .archive-link');
+        customInteractives.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                if (cursorRing) cursorRing.classList.add('hovering');
+            });
+            el.addEventListener('mouseleave', () => {
+                if (cursorRing) cursorRing.classList.remove('hovering');
+            });
+        });
+    }
 
     // ==================================================
     // CERTIFICATE MODAL LOGIC

@@ -1,0 +1,512 @@
+# GridMind-RL
+
+## Training AI to manage industrial buildings under faults, grid stress, and natural-language objectives.
+
+**AI / Reinforcement Learning / LLM Training / Energy Systems**
+
+**Top 800 Nationwide · 72,000+ Registrations · Meta PyTorch OpenEnv Hackathon × Scaler School of Technology**
+
+---
+
+## The Idea
+
+Industrial buildings are complex systems.
+
+Energy prices change throughout the day. Equipment can fail. Electricity grids experience periods of critical stress. Indoor temperatures must remain within safe limits. Production jobs have deadlines. Carbon emissions matter.
+
+Traditional building-control systems often rely on fixed rules and reactive policies.
+
+But what if an AI agent could learn to make intelligent decisions across an entire 24-hour operating cycle?
+
+That is what I built with **GridMind-RL**.
+
+GridMind-RL is a reinforcement-learning environment designed to train Large Language Models to manage simulated industrial building energy systems.
+
+The AI agent observes the current condition of a building, makes operational decisions, receives a reward based on the consequences of those decisions, and gradually learns better long-term strategies.
+
+---
+
+## The Problem
+
+Industrial buildings account for a major share of global electricity consumption, yet many energy-control systems still depend on fixed schedules and simple reactive policies.
+
+A real building operator must simultaneously consider:
+
+- changing electricity prices,
+- indoor temperature constraints,
+- grid stress,
+- carbon intensity,
+- thermal energy storage,
+- equipment efficiency,
+- production deadlines,
+- unexpected equipment faults,
+- and natural-language operational objectives.
+
+These objectives frequently conflict.
+
+Reducing energy consumption may affect temperature.
+
+Maintaining maximum comfort may increase cost.
+
+Shifting power usage may help the grid but interfere with production schedules.
+
+GridMind-RL turns this multi-objective problem into a simulated environment where AI agents can learn through interaction.
+
+---
+
+## What I Built
+
+I designed GridMind-RL as a complete 24-hour industrial building simulation.
+
+Each episode contains:
+
+**96 simulation steps**
+
+Each step represents:
+
+**15 minutes of simulated time**
+
+Together, they create one complete 24-hour operating cycle.
+
+During every step, the AI receives information about the building and must decide how to operate it.
+
+### The agent can observe:
+
+- Indoor temperature
+- Thermal storage level
+- Current industrial power demand
+- Electricity price
+- Grid stress
+- Carbon intensity
+- Hour of day
+- Production batch deadlines
+- Cumulative energy cost
+- HVAC efficiency
+- Active equipment faults
+- Natural-language instruction objectives
+- Upcoming electricity-price forecast
+
+### The agent controls:
+
+- HVAC power level
+- Thermal storage charging and discharging
+- Production batch scheduling
+- Load shedding during grid stress
+
+Every action changes the simulated world.
+
+A poor decision may increase energy cost, violate temperature constraints, miss a production deadline, or fail to respond correctly to equipment faults.
+
+A strong policy must balance all of these objectives over the entire episode.
+
+---
+
+## Four Different AI Challenges
+
+GridMind-RL contains four tasks, each testing a different capability.
+
+### 01 — Cost Optimization
+
+The agent learns to minimize electricity costs by understanding changing energy prices and strategically using thermal storage.
+
+For example, electricity may cost only **$0.04/kWh during off-peak hours** but rise to **$0.32/kWh during peak demand**.
+
+A good agent learns to prepare before expensive periods rather than reacting after prices have already increased.
+
+---
+
+### 02 — Temperature Management
+
+The agent must maintain safe indoor temperature conditions while balancing energy consumption and changing HVAC efficiency.
+
+Simply running HVAC at maximum power is not an intelligent solution.
+
+The agent must learn when to cool, how aggressively to operate, and how changing conditions affect future states.
+
+---
+
+### 03 — Demand Response
+
+When grid stress rises above critical levels, the agent must intelligently reduce power consumption without destabilizing building operations.
+
+This tests whether the agent can respond to external grid conditions while still respecting temperature, production, and operational constraints.
+
+---
+
+### 04 — Natural-Language Instruction Following
+
+The environment can present objectives such as:
+
+> "Keep total energy cost under $2.50 while maintaining the building between 19°C and 23°C."
+
+The agent must understand the instruction and plan its actions across all 96 steps.
+
+This is not a single-step question-and-answer task.
+
+The AI must remember the objective and make decisions that satisfy it over an entire simulated day.
+
+---
+
+## What Makes GridMind-RL Different
+
+The core idea behind GridMind-RL is that an AI agent should not simply respond to the current moment.
+
+It should learn to plan.
+
+A greedy policy might choose the cheapest immediate action.
+
+A stronger policy asks:
+
+- Will electricity become more expensive later?
+- Should I charge thermal storage now?
+- Is grid stress approaching a critical level?
+- Is HVAC efficiency degrading?
+- Could this action cause a temperature violation later?
+- Is there an active equipment fault?
+- Will a production job miss its deadline?
+- Am I still satisfying the natural-language objective?
+
+This creates a long-horizon reasoning problem rather than a simple control task.
+
+---
+
+## Fault-Aware Decision Making
+
+Real systems are not perfect.
+
+Equipment fails.
+
+So GridMind-RL includes fault injection as part of the environment.
+
+The agent can encounter active fault conditions during an episode and must adjust its behavior accordingly.
+
+Fault mitigation is dynamically rewarded based on the type of fault and the agent's response.
+
+This makes the environment more realistic and prevents the AI from learning only under perfect operating conditions.
+
+---
+
+## Multi-Building Coordination
+
+GridMind-RL goes beyond controlling a single building.
+
+A coordinator can oversee multiple buildings simultaneously.
+
+The oversight agent reads fleet-wide energy demand and applies per-building price multipliers to coordinate behavior across the entire system.
+
+The architecture works conceptually like this:
+
+**Oversight LLM**
+↓
+**Fleet-Wide Building State**
+↓
+**Per-Building Coordination Signals**
+↓
+**Individual Building Agents**
+↓
+**Coordinated Energy Behavior**
+
+This allows the environment to explore how AI agents could coordinate multiple industrial buildings during grid stress or changing electricity conditions.
+
+---
+
+## The Reward System
+
+GridMind-RL uses a multi-component reward function rather than a single simplistic score.
+
+The agent is evaluated on:
+
+- Cost savings
+- Carbon reduction
+- Temperature constraints
+- Grid response
+- Production deadlines
+- Energy efficiency
+- Operational stability
+- Instruction satisfaction
+- Fault mitigation
+
+The weights were designed around realistic operational priorities.
+
+Energy cost is a major business concern.
+
+Temperature is a safety and operational constraint.
+
+Grid response matters during demand-response events.
+
+Production deadlines affect continuity.
+
+Stability discourages excessive HVAC switching that could increase equipment wear.
+
+The purpose of this reward structure is to force the AI to balance competing objectives rather than exploit one easy metric.
+
+---
+
+## What the Agent Learns
+
+A naive baseline follows fixed rules.
+
+It does not truly understand future electricity prices, changing grid conditions, or long-term consequences.
+
+After reinforcement-learning training, the goal is for the agent to discover strategies such as:
+
+- Charging thermal storage during low-cost off-peak periods
+- Discharging stored energy during expensive peak periods
+- Reducing power consumption during critical grid stress
+- Adjusting HVAC behavior as equipment efficiency changes
+- Planning around production deadlines
+- Responding appropriately to equipment faults
+- Following natural-language objectives over long time horizons
+
+These strategies are not individually hardcoded as fixed rules.
+
+The environment provides observations, actions, physics, constraints, and rewards. The agent must learn useful behavior through interaction.
+
+---
+
+## Baseline Results
+
+Before full fine-tuning, I evaluated two baseline approaches.
+
+| Policy | Task 1 | Task 2 | Task 3 | Task 4 |
+|---|---:|---:|---:|---:|
+| Heuristic Baseline | 0.494 | 0.471 | 0.748 | 0.478 |
+| Zero-Shot LLM | 0.715 | 0.645 | 0.610 | 0.582 |
+
+The zero-shot model used **Qwen2.5-1.5B-Instruct** with the task description and no fine-tuning.
+
+The heuristic baseline used a fixed policy with no learning.
+
+Episode grades are measured from **0.0 to 1.0**.
+
+Full GRPO fine-tuned scores are intentionally not shown as completed results until the final training run is finished and verified.
+
+---
+
+## System Architecture
+
+GridMind-RL deliberately separates the AI policy from the environment simulation.
+
+The architecture is:
+
+**LLM Agent — Python**
+↓ HTTP API
+**Go Environment Server**
+↓
+**Physics Simulation + Reward Engine + Task Logic + Fault Injection**
+↓
+**Web Dashboard and Metrics**
+
+### Policy Layer
+
+The AI agent is implemented in Python.
+
+It observes the environment, selects actions, and communicates with the simulation through a standardized REST API.
+
+### Environment Layer
+
+The core environment server is written in Go.
+
+It manages:
+
+- simulation state,
+- physics,
+- task progression,
+- reward calculation,
+- fault injection,
+- grading,
+- multi-building coordination.
+
+### Visualization Layer
+
+A live dashboard exposes the environment visually, making it possible to inspect the simulated building state and agent behavior.
+
+---
+
+## Why Go + Python?
+
+I intentionally separated the system into two languages.
+
+**Go** handles the environment server and simulation infrastructure.
+
+**Python** handles AI inference and reinforcement-learning training.
+
+This separation provides several advantages:
+
+- The simulation is independent of any single AI model.
+- Different agents can interact through the same REST API.
+- The policy layer can change without rewriting the environment.
+- The architecture follows a clean separation of concerns.
+- The environment remains compatible with agents written in other languages.
+
+---
+
+## OpenEnv Compatibility
+
+GridMind-RL follows a standardized API architecture that allows external agents to:
+
+- Start a new episode
+- Read environment state
+- Take actions
+- Retrieve grades
+- Inspect available tasks
+- Access metrics
+- Replay episode history
+- Read fleet-wide state
+- Coordinate multiple buildings
+- Run world-model predictions
+
+This makes the environment suitable for experimentation with different LLMs and agent architectures.
+
+---
+
+## Technical Stack
+
+**Environment & Backend**
+- Go 1.21
+- REST API
+- WebSocket support
+
+**AI & Training**
+- Python 3.11
+- GRPO
+- Unsloth
+- Qwen2.5-1.5B-Instruct
+
+**Infrastructure**
+- Docker
+- HuggingFace Spaces
+
+**Simulation**
+- 24-hour episodes
+- 96 steps per episode
+- 15-minute resolution
+- Seeded random number generation
+- Equipment fault injection
+- Dynamic electricity pricing
+- Grid stress simulation
+- Carbon intensity modeling
+
+---
+
+## Project Scale at a Glance
+
+**96**
+Simulation steps per episode
+
+**24 HOURS**
+Simulated operating cycle
+
+**13**
+Observation fields
+
+**4**
+Controllable action dimensions
+
+**4**
+AI training tasks
+
+**9**
+Reward components
+
+**2**
+Programming languages at the core
+
+**TOP 800**
+Nationwide selection from 72,000+ registrations
+
+---
+
+## Live Experience
+
+### Environment API
+
+https://prajwal782007-gridmind.hf.space
+
+### Live Dashboard
+
+https://prajwal782007-gridmind.hf.space/dashboard
+
+Visitors can explore the live environment and inspect the dashboard directly.
+
+---
+
+## The Biggest Technical Challenge
+
+The hardest part was not simply creating an environment where an AI could take actions.
+
+The real challenge was designing a system where decisions have meaningful long-term consequences.
+
+If rewards are poorly designed, an agent may exploit unintended behavior.
+
+If the environment is too simple, the AI learns trivial policies.
+
+If every objective has equal importance, the simulation does not reflect real operational priorities.
+
+GridMind-RL therefore required balancing:
+
+- physical constraints,
+- economic objectives,
+- grid conditions,
+- production requirements,
+- equipment degradation,
+- random faults,
+- natural-language instructions,
+- and long-term planning.
+
+The goal was to create an environment where intelligent behavior emerges from the interaction between these systems.
+
+---
+
+## What I Learned
+
+Building GridMind-RL taught me that reinforcement learning is not only about choosing an algorithm.
+
+The quality of the environment matters enormously.
+
+A useful RL environment requires:
+
+- meaningful state representation,
+- carefully designed actions,
+- realistic constraints,
+- defensible reward weights,
+- reproducible simulation,
+- strong baselines,
+- and honest evaluation.
+
+It also taught me the importance of separating simulation infrastructure from the AI policy itself.
+
+By keeping the Go environment independent from the Python agent, the system became easier to test, extend, and use with different models.
+
+---
+
+## Recognition
+
+GridMind-RL was built for the **Meta PyTorch OpenEnv Hackathon × Scaler School of Technology**.
+
+The project was selected among the **Top 800 nationwide from more than 72,000 registrations**.
+
+This recognition was based on the project's technical approach to training AI agents for complex, long-horizon industrial energy-management problems.
+
+---
+
+## Explore the Project
+
+**LIVE ENVIRONMENT**
+https://prajwal782007-gridmind.hf.space
+
+**LIVE DASHBOARD**
+https://prajwal782007-gridmind.hf.space/dashboard
+
+Add the verified GitHub repository URL here when connecting the final portfolio project page.
+
+---
+
+## Built By
+
+**Prajwal Valekar**
+
+Computer Science Engineer  
+AI & Full-Stack Developer
+
+Building across artificial intelligence, reinforcement learning, full-stack systems, mobile applications, IoT, and systems programming.
