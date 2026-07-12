@@ -319,6 +319,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Project Details Modal Logic ---
     const readGridmindBtn = document.getElementById('read-gridmind-btn');
     const readCubesatBtn = document.getElementById('read-cubesat-btn');
+    const aboutMeBtn = document.getElementById('about-me-btn');
     const projectModal = document.getElementById('project-details-modal');
     const projectModalClose = document.querySelector('.project-modal-close');
     const projectModalBackdrop = document.querySelector('.project-modal-backdrop');
@@ -366,6 +367,12 @@ document.addEventListener('DOMContentLoaded', () => {
         if (readCubesatBtn) {
             readCubesatBtn.addEventListener('click', () => {
                 openProjectModal(typeof cubesatMarkdown !== 'undefined' ? cubesatMarkdown : undefined);
+            });
+        }
+
+        if (aboutMeBtn) {
+            aboutMeBtn.addEventListener('click', () => {
+                openProjectModal(typeof aboutMeMarkdown !== 'undefined' ? aboutMeMarkdown : undefined);
             });
         }
 
