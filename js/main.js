@@ -517,5 +517,162 @@ document.addEventListener('DOMContentLoaded', () => {
 
         autoplayVideos.forEach(video => videoObserver.observe(video));
     }
+    // --- TECH ARSENAL LOGIC ---
+    const skillData = {
+        python: { name: 'PYTHON', cat: 'LANGUAGES', desc: 'Used across AI agents, reinforcement-learning pipelines, automation, and hardware-related systems.', proj: ['GridMind-RL', 'Satellite Communication System', 'Jarvis AI Agent', 'RAT App'] },
+        java: { name: 'JAVA', cat: 'LANGUAGES', desc: 'Used for Android mobile application development and backend integration.', proj: ['Real-Time Inventory System', '5+ College Student Projects'] },
+        c: { name: 'C', cat: 'LANGUAGES', desc: 'Used for embedded systems and IoT hardware integrations.', proj: ['Satellite Communication System'] },
+        javascript: { name: 'JAVASCRIPT', cat: 'LANGUAGES', desc: 'Used for web frontends, interactive logic, and full-stack integration.', proj: ['Store Ordering App', 'Expense Tracker'] },
+        typescript: { name: 'TYPESCRIPT', cat: 'LANGUAGES', desc: 'Used for type-safe full-stack applications.', proj: ['5+ College Student Projects'] },
+        go: { name: 'GO', cat: 'LANGUAGES', desc: 'Used to build the core simulation and backend infrastructure for high-performance systems.', proj: ['GridMind-RL'] },
+        rust: { name: 'RUST', cat: 'LANGUAGES', desc: 'Used to reimplement systems at a low level to explore systems programming and memory safety.', proj: ['Rust GridMind Clone'] },
+        rl: { name: 'REINFORCEMENT LEARNING', cat: 'AI & MACHINE LEARNING', desc: 'Used to train AI agents to navigate complex simulated constraints and multi-objective optimization.', proj: ['GridMind-RL'] },
+        grpo: { name: 'GRPO', cat: 'AI & MACHINE LEARNING', desc: 'Used for specialized LLM policy training and optimization.', proj: ['GridMind-RL'] },
+        llm: { name: 'LLM FINE-TUNING', cat: 'AI & MACHINE LEARNING', desc: 'Used to adapt large language models to domain-specific instructions.', proj: ['GridMind-RL'] },
+        unsloth: { name: 'UNSLOTH', cat: 'AI & MACHINE LEARNING', desc: 'Used for efficient fine-tuning of large language models.', proj: ['GridMind-RL'] },
+        react: { name: 'REACT', cat: 'WEB & MOBILE', desc: 'Used for building complex, interactive single-page web applications.', proj: ['Online Tic Tac Toe', 'Store Ordering App'] },
+        reactnative: { name: 'REACT NATIVE', cat: 'WEB & MOBILE', desc: 'Used for cross-platform mobile application development.', proj: ['5+ College Student Projects'] },
+        flutter: { name: 'FLUTTER', cat: 'WEB & MOBILE', desc: 'Used to build robust mobile applications, including dual teacher-student apps.', proj: ['Academy Management App'] },
+        html: { name: 'HTML', cat: 'WEB & MOBILE', desc: 'Used to structure semantic, accessible web interfaces.', proj: ['Real-Time Inventory System', 'Expense Tracker'] },
+        css: { name: 'CSS', cat: 'WEB & MOBILE', desc: 'Used for bespoke editorial layouts, custom animations, and responsive design.', proj: ['Real-Time Inventory System', 'Expense Tracker'] },
+        tailwind: { name: 'TAILWIND', cat: 'WEB & MOBILE', desc: 'Used for rapid, utility-first UI development.', proj: ['5+ College Student Projects'] },
+        webgl: { name: 'WEBGL', cat: 'WEB & MOBILE', desc: 'Used for hardware-accelerated graphics and visual effects.', proj: ['Portfolio (Interactive Hero)'] },
+        firebase: { name: 'FIREBASE', cat: 'DATA, INFRASTRUCTURE & DEPLOYMENT', desc: 'Used for real-time databases, Firestore, and authentication in mobile apps.', proj: ['Academy Management App', 'Real-Time Inventory System'] },
+        mongodb: { name: 'MONGODB', cat: 'DATA, INFRASTRUCTURE & DEPLOYMENT', desc: 'Used as the NoSQL database layer for full-stack apps.', proj: ['Store Ordering App'] },
+        docker: { name: 'DOCKER', cat: 'DATA, INFRASTRUCTURE & DEPLOYMENT', desc: 'Used to containerize and deploy complex multi-service architectures.', proj: ['GridMind-RL'] },
+        huggingface: { name: 'HUGGING FACE', cat: 'DATA, INFRASTRUCTURE & DEPLOYMENT', desc: 'Used to host and deploy AI models and live interactive dashboards.', proj: ['GridMind-RL'] },
+        render: { name: 'RENDER', cat: 'DATA, INFRASTRUCTURE & DEPLOYMENT', desc: 'Used for deploying full-stack backend servers.', proj: ['Store Ordering App'] },
+        netlify: { name: 'NETLIFY', cat: 'DATA, INFRASTRUCTURE & DEPLOYMENT', desc: 'Used for continuous deployment of frontend web apps.', proj: ['5+ College Student Projects'] },
+        colab: { name: 'GOOGLE COLAB', cat: 'DATA, INFRASTRUCTURE & DEPLOYMENT', desc: 'Used for cloud-based training of machine learning models.', proj: ['GridMind-RL'] },
+        vscode: { name: 'VS CODE', cat: 'DEVELOPMENT TOOLS', desc: 'Primary editor for web and general software development.', proj: ['Most Projects'] },
+        cursor: { name: 'CURSOR', cat: 'DEVELOPMENT TOOLS', desc: 'Used for AI-assisted coding and accelerated development.', proj: ['GridMind-RL', 'Portfolio'] },
+        androidstudio: { name: 'ANDROID STUDIO', cat: 'DEVELOPMENT TOOLS', desc: 'Used for native Android app development and emulation.', proj: ['Real-Time Inventory System'] }
+    };
+
+    const skillItems = document.querySelectorAll('.skill-item');
+    const techIndex = document.querySelector('.tech-index');
+    const ctxDefault = document.querySelector('.context-default');
+    const ctxDynamic = document.querySelector('.context-dynamic');
+    const ctxName = document.getElementById('ctx-name');
+    const ctxCat = document.getElementById('ctx-cat');
+    const ctxDesc = document.getElementById('ctx-desc');
+    const ctxList = document.getElementById('ctx-list');
+
+    // Desktop hover logic
+    if (window.innerWidth > 900) {
+        skillItems.forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                const skillKey = item.getAttribute('data-skill');
+                const data = skillData[skillKey];
+                
+                if (data) {
+                    techIndex.classList.add('is-hovered');
+                    
+                    // Cleanup previous active state on siblings
+                    skillItems.forEach(s => s.classList.remove('active-skill'));
+                    item.classList.add('active-skill');
+
+                    // Populate Context Panel
+                    ctxName.textContent = data.name;
+                    ctxCat.textContent = data.cat;
+                    ctxDesc.textContent = data.desc;
+                    
+                    ctxList.innerHTML = '';
+                    data.proj.forEach(p => {
+                        const li = document.createElement('li');
+                        li.textContent = p;
+                        ctxList.appendChild(li);
+                    });
+
+                    // Switch visible panel
+                    ctxDefault.classList.remove('active');
+                    ctxDynamic.classList.add('active');
+                    
+                    // Set custom cursor text
+                    item.setAttribute('data-cursor-text', 'USE');
+                    item.classList.add('custom-cursor-visual');
+                }
+            });
+            
+            item.addEventListener('mouseleave', () => {
+                item.removeAttribute('data-cursor-text');
+                item.classList.remove('custom-cursor-visual');
+            });
+        });
+
+        // Revert when leaving the entire index area
+        if (techIndex) {
+            techIndex.addEventListener('mouseleave', () => {
+                techIndex.classList.remove('is-hovered');
+                skillItems.forEach(s => s.classList.remove('active-skill'));
+                ctxDynamic.classList.remove('active');
+                ctxDefault.classList.add('active');
+            });
+        }
+    } else {
+        // Mobile tap logic
+        skillItems.forEach(item => {
+            const skillKey = item.getAttribute('data-skill');
+            const data = skillData[skillKey];
+            
+            if (data) {
+                // Create expanding details div
+                const detailsDiv = document.createElement('div');
+                detailsDiv.className = 'mobile-skill-details';
+                
+                let projHTML = data.proj.map(p => `<li>${p}</li>`).join('');
+                
+                detailsDiv.innerHTML = `
+                    <p style="font-size: 0.95rem; color: rgba(234,234,234,0.9); margin-bottom: 0.5rem; line-height: 1.4;">${data.desc}</p>
+                    <ul style="list-style: none; padding: 0; font-size: 0.85rem; color: rgba(234,234,234,0.6);">
+                        ${projHTML}
+                    </ul>
+                `;
+                
+                item.parentNode.insertBefore(detailsDiv, item.nextSibling);
+
+                item.addEventListener('click', () => {
+                    // Toggle active state
+                    const isActive = item.classList.contains('active-skill');
+                    
+                    // Close others
+                    document.querySelectorAll('.skill-item').forEach(s => s.classList.remove('active-skill'));
+                    document.querySelectorAll('.mobile-skill-details').forEach(d => d.classList.remove('active'));
+                    
+                    if (!isActive) {
+                        item.classList.add('active-skill');
+                        detailsDiv.classList.add('active');
+                    }
+                });
+            }
+        });
+    }
+
+    // Very subtle ambient background effect on mousemove for .tech-arsenal
+    const techArsenal = document.querySelector('.tech-arsenal');
+    const techBg = document.getElementById('tech-bg');
+    
+    if (techArsenal && techBg && window.innerWidth > 900) {
+        techArsenal.addEventListener('mouseenter', () => {
+            techBg.style.opacity = '1';
+        });
+        
+        techArsenal.addEventListener('mousemove', (e) => {
+            requestAnimationFrame(() => {
+                const rect = techArsenal.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const xPercent = (x / rect.width) * 100;
+                const yPercent = (y / rect.height) * 100;
+                
+                techBg.style.backgroundImage = `radial-gradient(circle at ${xPercent}% ${yPercent}%, rgba(255, 69, 0, 0.04) 0%, transparent 60%)`;
+            });
+        });
+        
+        techArsenal.addEventListener('mouseleave', () => {
+            techBg.style.opacity = '0';
+        });
+    }
 
 });
