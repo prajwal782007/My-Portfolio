@@ -380,18 +380,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Speech Player Logic ---
     const hearGridmindBtn = document.getElementById('hear-gridmind-btn');
+    const hearCubesatBtn = document.getElementById('hear-cubesat-btn');
     const speechWidget = document.getElementById('speech-player-widget');
     const closeSpeechBtn = document.getElementById('close-speech-btn');
     const gridmindAudio = document.getElementById('gridmind-audio');
+    const cubesatAudio = document.getElementById('cubesat-audio');
     const speechTextContainer = document.getElementById('speech-text');
+    const speechTitle = document.querySelector('.speech-title');
 
-    if (hearGridmindBtn && speechWidget && gridmindAudio) {
-        hearGridmindBtn.addEventListener('click', () => {
-            speechWidget.classList.add('show');
+    let currentAudio = null;
+
+    if (speechWidget) {
+        const playSpeech = (audioElement, titleText, speechTextData) => {
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio.currentTime = 0;
+            }
             
-            // Format and load text from global speech-data.js
-            if (typeof gridmindSpeech !== 'undefined') {
-                const formattedSpeech = gridmindSpeech.split('\n\n').map(p => {
+            speechWidget.classList.add('show');
+            if (speechTitle) speechTitle.textContent = titleText;
+            
+            if (speechTextData) {
+                const formattedSpeech = speechTextData.split('\n\n').map(p => {
                     return `<p style="margin-bottom: 1rem;">${p}</p>`;
                 }).join('');
                 speechTextContainer.innerHTML = formattedSpeech;
@@ -399,15 +409,34 @@ document.addEventListener('DOMContentLoaded', () => {
                 speechTextContainer.innerHTML = '<p>Speech text not loaded.</p>';
             }
 
-            // Play audio
-            gridmindAudio.currentTime = 0;
-            gridmindAudio.play().catch(e => console.log('Audio autoplay blocked:', e));
-        });
+            if (audioElement) {
+                currentAudio = audioElement;
+                currentAudio.currentTime = 0;
+                currentAudio.play().catch(e => console.log('Audio autoplay blocked:', e));
+            }
+        };
 
-        closeSpeechBtn.addEventListener('click', () => {
-            speechWidget.classList.remove('show');
-            gridmindAudio.pause();
-        });
+        if (hearGridmindBtn && gridmindAudio) {
+            hearGridmindBtn.addEventListener('click', () => {
+                playSpeech(gridmindAudio, 'Playing: GridMind-RL Overview', typeof gridmindSpeech !== 'undefined' ? gridmindSpeech : undefined);
+            });
+        }
+        
+        if (hearCubesatBtn && cubesatAudio) {
+            hearCubesatBtn.addEventListener('click', () => {
+                // Using cubesatMarkdown as text fallback for the speech widget
+                playSpeech(cubesatAudio, 'Playing: Satellite Communication System', typeof cubesatMarkdown !== 'undefined' ? cubesatMarkdown : undefined);
+            });
+        }
+
+        if (closeSpeechBtn) {
+            closeSpeechBtn.addEventListener('click', () => {
+                speechWidget.classList.remove('show');
+                if (currentAudio) {
+                    currentAudio.pause();
+                }
+            });
+        }
     }
 
     // --- Autoplay Video on Scroll Logic ---
