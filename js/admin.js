@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', async () => {
-    // DOM Element
+    // DOM Elements
     const authLayer = document.getElementById('auth-layer');
     const appLayer = document.getElementById('app-layer');
     const loginForm = document.getElementById('login-form');
