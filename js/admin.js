@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const chatSendBtn = document.getElementById('chat-send-btn');
     const activeConvName = document.getElementById('active-conv-name');
 
-    // Initialize Supabase clien
+    // Initialize Supabase client
     const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
     // State
